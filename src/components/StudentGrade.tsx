@@ -1,16 +1,13 @@
 import { useState } from "react";
 
-function StudentGrade({
-  name,
-  className,
-  initialScore,
-  status,
-}: {
+interface StudentGradeProps {
   name: string;
   className: string;
   initialScore: number;
   status: string;
-}) {
+}
+
+function StudentGrade({ name, className, initialScore, status }: StudentGradeProps) {
   const [score, setScore] = useState(initialScore);
 
   const calculateFinalScore = (
@@ -19,9 +16,13 @@ function StudentGrade({
     attendance: number,
   ): number => {
     return task * 0.3 + exam * 0.5 + attendance * 0.2;
-  };
+  };  
 
-  const updateScore = (currentScore: number, amount: number, operation: string): number => {
+  const updateScore = (
+    currentScore: number,
+    amount: number,
+    operation: string,
+  ): number => {
     if (operation === "add") {
       return currentScore + amount;
     }
