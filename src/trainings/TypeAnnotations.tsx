@@ -4,9 +4,21 @@ function TypeAnnotations() {
   let isOsis: boolean = true;
   let nilai: number | string = 95;
 
-  console.log(name, umur, isOsis, nilai);
+  console.log(`Halo nama saya ${name}, umur saya ${umur}, saya adalah bagian dari OSIS ${isOsis}, dan nilai saya adalah ${nilai}`);
 
-  return <div>TypeAnnotations</div>;
+  // Type Annotations pada function bisa digunakan untuk Parameter dan Return
+  const cekKelulusan = (nilai: number): string => {
+    if (nilai >= 75) {
+      return "Selamat Anda Lulus";
+    } else {
+      return "Maaf Anda Tidak Lulus";
+    }
+  }
+  
+  cekKelulusan(nilai);
+
+
+  return <div>{ cekKelulusan(nilai) }</div>;
 }
 
 export default TypeAnnotations;
