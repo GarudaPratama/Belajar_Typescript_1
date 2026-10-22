@@ -9,14 +9,16 @@ const rawApiResponse: unknown = {
 // TODO: Buat interface bernama 'UserAccount' 
 // yang mencakup seluruh properti di atas (userId, username, xpPoints, isActive)
 interface UserAccount {
-  // ... tulis properti di sini
+  userId: string | number;
+  username: string;
+  xpPoints: number;
+  isActive: boolean;
 }
 
 function processUserData(data: unknown) {
   // TODO: Gunakan Type Assertion (as UserAccount) pada variabel 'data' 
   // agar kita bisa mengakses property 'username' dan 'xpPoints' di bawah ini tanpa error merah dari TypeScript.
-  
-  const user = /* Tulis Type Assertion di sini */;
+  const user = data as UserAccount;
 
   console.log(`User: ${user.username}`);
   console.log(`XP: ${user.xpPoints}`);
