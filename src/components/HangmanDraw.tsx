@@ -1,3 +1,27 @@
+interface HangmanDrawProps {
+  attempt: number;
+}
+
+function HangmanDraw({ attempt }: HangmanDrawProps) {
+  return (
+    <section className="relative">
+      {HangmanFullBody.slice(0, attempt)}
+
+      {/* Tali */}
+      <div className="bg-black w-2 h-16 absolute right-2 top-0" />
+
+      {/* Kayu Atas */}
+      <div className="bg-black w-64 h-2 ml-26" />
+
+      {/* Tiang */}
+      <div className="h-128 w-2 bg-black ml-32" />
+
+      {/* Pasak */}
+      <div className="w-64 h-2 bg-black" />
+    </section>
+  );
+}
+
 const HangmanHead = () => {
   return (
     <div className="w-15 h-15 border-6 absolute border-black rounded-full -right-4.5 top-15" />
@@ -32,29 +56,13 @@ const HangmanBody = () => {
   return <div className="absolute h-46 w-2 bg-black right-2 top-30" />;
 };
 
-function HangmanDraw() {
-  return (
-    <section className="relative">
-      <HangmanHead />
-      <HangmanBody />
-      <HangmanRightArm />
-      <HangmanLeftArm />
-      <HangmanRightLeg />
-      <HangmanLeftLeg />
-
-      {/* Tali */}
-      <div className="bg-black w-2 h-16 absolute right-2 top-0" />
-
-      {/* Kayu Atas */}
-      <div className="bg-black w-64 h-2 ml-26" />
-
-      {/* Tiang */}
-      <div className="h-128 w-2 bg-black ml-32" />
-
-      {/* Pasak */}
-      <div className="w-64 h-2 bg-black" />
-    </section>
-  );
-}
+const HangmanFullBody = [
+  <HangmanHead />,
+  <HangmanBody />,
+  <HangmanRightArm />,
+  <HangmanLeftArm />,
+  <HangmanRightLeg />,
+  <HangmanLeftLeg />,
+];
 
 export default HangmanDraw;
