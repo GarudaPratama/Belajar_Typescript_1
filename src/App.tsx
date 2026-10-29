@@ -1,10 +1,3 @@
-// import Interface from "./trainings/Interface";
-// import Type from "./trainings/Type";
-// import Tugas1 from "./tugas/Tugas1";
-// import Enum from "./trainings/Enum";
-// import Tugas2satu from "./tugas/Tugas2satu";
-// import Tugas2tiga from "./tugas/Tugas2tiga";
-// import Tugas2dua from "./tugas/Tugas2dua";
 import { useState, useEffect } from "react";
 import HangmanDraw from "./components/HangmanDraw";
 import HangmanWord from "./components/HangmanWord";
@@ -14,17 +7,24 @@ import words from "../wordList.json";
 function App() {
   // Mengambil 1 kata random
   const [currentWord] = useState(() => {
-    return words[Math.floor(Math.random() * words.length)];
+    return words[Math.floor(Math.random() * words.length)].toLowerCase();
   });
 
-  const [selectedLetters, setSelectedLetters] = useState<string[]>(["a", "z"]);
+  const [selectedLetters, setSelectedLetters] = useState<string[]>([]);
 
   const incorrectLetters = selectedLetters.filter((letter) => {
     return !currentWord.includes(letter);
   });
 
+  // Logika Posisi Kalah & Menang
+  const isLoser = incorrectLetters.length >= 6;
+  const isWinner = currentWord
+    .split("")
+    .every((letter) => selectedLetters.includes(letter));
+
   const addLetter = (letter: string) => {
-    if (selectedLetters.includes(letter)) return;
+    // Jika huruf sudah ditekan atau game sudah selesai (kalah/menang), jangan lakukan apa-apa
+    if (selectedLetters.includes(letter) || isLoser || isWinner) return;
 
     setSelectedLetters((prev) => [...prev, letter]);
   };
@@ -37,22 +37,34 @@ function App() {
 
       e.preventDefault();
       addLetter(key);
-    }
+    };
 
     document.addEventListener("keypress", onKeyboardPress);
 
     return () => {
       document.removeEventListener("keypress", onKeyboardPress);
-    }
-  }, [selectedLetters]);
+    };
+  }, [selectedLetters, isLoser, isWinner]);
 
   return (
     <section className="flex flex-col min-h-screen justify-center items-center gap-8">
-      <div>Lose Win</div>
+      {/* Teks Pesan Menang / Kalah */}
+      <div className="text-2xl font-bold">
+        {isWinner && "You win, refresh and try again!"}
+        {isLoser && "Nice try, refresh and try again!"}
+      </div>
 
       <HangmanDraw attempt={incorrectLetters.length} />
-      <HangmanWord word={currentWord} selectedLetters={selectedLetters} />
+      
+      <HangmanWord
+        word={currentWord}
+        selectedLetters={selectedLetters}
+        reveal={isLoser}
+        isWinner={isWinner}
+      />
+      
       <Keyboard
+        disabled={isWinner || isLoser}
         onKeyboardClick={addLetter}
         inactiveLetters={incorrectLetters}
         activeLetters={selectedLetters.filter((letter) => {
