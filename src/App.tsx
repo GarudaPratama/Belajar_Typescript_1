@@ -5,7 +5,7 @@ import Keyboard from "./components/Keyboard";
 import words from "../wordList.json";
 
 function App() {
-  // Mengambil 1 kata random
+  
   const [currentWord] = useState(() => {
     return words[Math.floor(Math.random() * words.length)].toLowerCase();
   });
@@ -16,14 +16,14 @@ function App() {
     return !currentWord.includes(letter);
   });
 
-  // Logika Posisi Kalah & Menang
+ 
   const isLoser = incorrectLetters.length >= 6;
   const isWinner = currentWord
     .split("")
     .every((letter) => selectedLetters.includes(letter));
 
   const addLetter = (letter: string) => {
-    // Jika huruf sudah ditekan atau game sudah selesai (kalah/menang), jangan lakukan apa-apa
+    
     if (selectedLetters.includes(letter) || isLoser || isWinner) return;
 
     setSelectedLetters((prev) => [...prev, letter]);
@@ -48,7 +48,7 @@ function App() {
 
   return (
     <section className="flex flex-col min-h-screen justify-center items-center gap-8">
-      {/* Teks Pesan Menang / Kalah */}
+      
       <div className="text-2xl font-bold">
         {isWinner && "You win, refresh and try again!"}
         {isLoser && "Nice try, refresh and try again!"}

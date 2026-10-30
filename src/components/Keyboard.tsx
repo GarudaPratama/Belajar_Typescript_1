@@ -6,7 +6,7 @@ interface KeyboardProps {
   onKeyboardClick: (letter: string) => void;
   inactiveLetters: string[];
   activeLetters: string[];
-  disabled?: boolean; // Prop untuk menonaktifkan keyboard
+  disabled?: boolean;
 }
 
 function Keyboard({

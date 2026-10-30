@@ -1,8 +1,8 @@
 interface HangmanWordProps {
   word: string;
   selectedLetters: string[];
-  reveal?: boolean;    // bernilai true jika posisi kalah
-  isWinner?: boolean;  // bernilai true jika posisi menang
+  reveal?: boolean;    
+  isWinner?: boolean;  
 }
 
 function HangmanWord({
@@ -20,9 +20,9 @@ function HangmanWord({
         // Atur warna huruf
         let textColor = "text-black";
         if (isWinner) {
-          textColor = "text-green-500"; // Menang: semua huruf warna hijau
+          textColor = "text-green-500"; 
         } else if (reveal && !isGuessed) {
-          textColor = "text-red-500";   // Kalah: huruf yang di-reveal warna merah
+          textColor = "text-red-500";   
         }
 
         return (
